@@ -1,0 +1,11 @@
+POST http://127.0.0.1:3000/pastel
+Content-Type: application/json
+
+ {
+    "id": 4,
+    "nome": "Frango com Catupiry",
+    "valor": 16.50,
+    "tamanho": "Médio",
+    "viagem": false,
+    "imagem": "https://placehold.co/400"
+}
