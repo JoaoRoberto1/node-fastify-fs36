@@ -9,3 +9,29 @@ Content-Type: application/json
     "viagem": false,
     "imagem": "https://placehold.co/400"
 }
+
+PATCH http://127.0.0.1:3000/pastel/4
+Content-Type: application/json
+
+{
+    "valor": 18.00,
+    "tamanho": "Grande"
+}
+
+PUT http://127.0.0.1:3000/pastel/4
+Content-Type: application/json
+
+{
+    "id": 4,
+    "nome": "Frango com Catupiry Extra",
+    "valor": 20.00,
+    "tamanho": "Grande",
+    "viagem": true,
+    "imagem": "https://placehold.co/500"
+}
+
+GET http://127.0.0.1:3000/pasteis
+
+GET http://127.0.0.1:3000/pastel/4
+
+DELETE http://127.0.0.1:3000/pastel/4

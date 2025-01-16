@@ -66,5 +66,75 @@ fastify.get('/pastel/:id', (request, reply) => {
     };
 });
 
+// Rota para atualizar um pastel (PATCH)
+fastify.patch('/pastel/:id', (request, reply) => {
+    const id = parseInt(request.params.id);
+    const updates = request.body;
+
+    const pastel = pasteis.find(p => p.id === id);
+
+    if (!pastel) {
+        return reply.status(404).send({
+            error: 'Not Found',
+            message: `Nenhum pastel encontrado com o ID: ${id}`
+        });
+    }
+
+    // Atualiza apenas os campos fornecidos
+    Object.assign(pastel, updates);
+
+    return {
+        data: pastel,
+        message: `Pastel com ID: ${id} atualizado com sucesso!`
+    };
+});
+
+// Rota para substituir um pastel (PUT)
+fastify.put('/pastel/:id', (request, reply) => {
+    const id = parseInt(request.params.id);
+    const novoPastel = request.body;
+
+    const index = pasteis.findIndex(p => p.id === id);
+
+    if (index === -1) {
+        return reply.status(404).send({
+            error: 'Not Found',
+            message: `Nenhum pastel encontrado com o ID: ${id}`
+        });
+    }
+
+    // Substitui o pastel pelo novo
+    pasteis[index] = { id, ...novoPastel };
+
+    return {
+        data: pasteis[index],
+        message: `Pastel com ID: ${id} substituído com sucesso!`
+    };
+});
+
+// Rota para deletar um pastel (DELETE)
+fastify.delete('/pastel/:id', (request, reply) => {
+    const id = parseInt(request.params.id);
+
+    const index = pasteis.findIndex(p => p.id === id);
+
+    if (index === -1) {
+        return reply.status(404).send({
+            error: 'Not Found',
+            message: `Nenhum pastel encontrado com o ID: ${id}`
+        });
+    }
+
+    // Remove o pastel do array
+    pasteis.splice(index, 1);
+
+    return reply.status(204).send({
+        data: pasteis,
+        qtd: pasteis.length,
+        message: `Pastel com ID: ${id} deletado com sucesso!`
+    });
+});
+
+
 // 3 - Iniciando o servidor
 fastify.listen({ port: 3000 });
